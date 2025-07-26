@@ -3,21 +3,35 @@ name: Build and Push Docker Image to AWS ECR
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: AWS
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Debug Secret Presence
+        run: |
+          if [ "${{ secrets.AWS_ACCESS_KEY_ID }}" != "" ]; then
+            echo "AWS_ACCESS_KEY_ID is set"
+          else
+            echo "AWS_ACCESS_KEY_ID is not set"
+          fi
+          if [ "${{ secrets.AWS_SECRET_ACCESS_KEY }}" != "" ]; then
+            echo "AWS_SECRET_ACCESS_KEY is set"
+          else
+            echo "AWS_SECRET_ACCESS_KEY is not set"
+          fi
+
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: us-east-1
 
       - name: Login to Amazon ECR
         id: login-ecr
