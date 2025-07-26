@@ -17,3 +17,6 @@ def interview():
     bot.conversation["answers"].append(bot.call_gemini(prompt))
 
     return render_template('conversation.html', conversation = bot.conversation)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
