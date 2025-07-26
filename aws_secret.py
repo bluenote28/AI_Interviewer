@@ -1,7 +1,7 @@
 import boto3
 from botocore.exceptions import ClientError
 
-
+#gets secret
 def get_secret():
 
     secret_name = "gemini_api_key"
