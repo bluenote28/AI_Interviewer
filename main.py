@@ -13,10 +13,15 @@ def main_page():
 def interview():
     prompt = request.form['userprompt']
 
-    bot.conversation["prompts"].append(prompt)
-    bot.conversation["answers"].append(bot.call_gemini(prompt))
+    if len(bot.conversation["prompts"]) == 0:
+         header = AiBot.summarize_text(prompt)
+         introduction = bot.converse(f"Introduce yourself as the interviewer of this job: {prompt}")
+    else:
+        bot.conversation["prompts"].append(prompt)
+        bot.conversation["answers"].append(bot.converse(prompt))
 
-    return render_template('conversation.html', conversation = bot.conversation)
+
+    return render_template('conversation.html', conversation = bot.conversation, header=header, introduction=introduction)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
