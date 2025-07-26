@@ -16,8 +16,17 @@ class AiBot():
         self.conversation = {"prompts": [], "answers": [] }
         self.chat = self.client.chats.create(model=self.model, config=types.GenerateContentConfig(system_instruction=self.system_instruction))
 
-    def call_gemini(self, prompt):
+    def converse(self, prompt):
         
         response = self.chat.send_message(prompt)
 
         return response.text
+    
+    def summarize_text(self, job_text):
+
+        contents = f"Summarize this job description in less than one sentence with the company name and title: {job_text}"
+
+        response = self.client.models.generate_content(model=self.model, contents=contents)
+
+        return response.text
+
