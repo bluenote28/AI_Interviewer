@@ -1,0 +1,27 @@
+.interview-section{
+    width: 50%;
+    margin: auto;
+}
+
+.conversation-input{
+    width: 50%;
+    margin: auto;
+}
+
+body{
+    background-color: rgb(41, 41, 41);
+}
+
+.card-container {
+
+    padding-top: 10px;
+    
+}
+
+.conversation-input{
+    padding-top: 10px;
+}
+
+h1{
+    color: white;
+}

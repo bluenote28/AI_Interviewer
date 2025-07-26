@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/styles.css">
+    <title>AI Interviewer</title>
+</head>
+<body>
+
+        <h1>Hello, my human interviewee. Please give me a job listing and I shall ask you questions</h1>
+
+
+        <form method="POST" action="/interview">
+             <div class="mb-3">
+                <label for="userprompt" class="form-label">How can I help you?</label>
+                <input type="userprompt" class="form-control" id="userprompt" name="userprompt" aria-describedby="userinputbox">
+             </div>
+        </form>
+
+
+</body>
+</html>
