@@ -12,13 +12,20 @@ def main_page():
 @app.route('/interview', methods=['POST'])
 def interview():
     prompt = request.form['userprompt']
+    header = ""
+    introduction = ""
 
     if len(bot.conversation["prompts"]) == 0:
-         header = AiBot.summarize_text(prompt)
-         introduction = bot.converse(f"Introduce yourself as the interviewer of this job: {prompt}")
+         header = bot.get_job_title_and_company(prompt)
+         introduction = bot.converse(f"Introduce yourself as the interviewer of this job: {prompt}. Your name is Mr. Smith. Make up your job title. \
+                                      Do not mention a company name if one is not provided")
+         bot.conversation["prompts"].append(header)
+         bot.conversation["answers"].append(introduction)
     else:
         bot.conversation["prompts"].append(prompt)
         bot.conversation["answers"].append(bot.converse(prompt))
+        introduction = bot.conversation["answers"][0]
+        header = bot.conversation["prompts"][0]
 
 
     return render_template('conversation.html', conversation = bot.conversation, header=header, introduction=introduction)
