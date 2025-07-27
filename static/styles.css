@@ -6,6 +6,7 @@
 .conversation-input{
     width: 50%;
     margin: auto;
+    padding-top: 10px;
 }
 
 body{
@@ -16,10 +17,6 @@ body{
 
     padding-top: 10px;
     
-}
-
-.conversation-input{
-    padding-top: 10px;
 }
 
 h1, h2{
