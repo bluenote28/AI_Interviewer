@@ -14,7 +14,6 @@ class AiBot():
         self.client = genai.Client(api_key=self.api_key)
         self.model = MODEL
         self.system_instruction = SYSTEM_INSTRUCTION
-        self.conversation = {"prompts": [], "answers": [] }
         self.chat = self.client.chats.create(model=self.model, config=types.GenerateContentConfig(thinking_config=types.ThinkingConfig(thinking_budget=1024)))
 
     def converse(self, prompt):
