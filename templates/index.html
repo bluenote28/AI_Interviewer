@@ -8,15 +8,17 @@
 </head>
 <body>
 
-        <h1>Hello, my human interviewee. Please give me a job listing and I shall ask you questions</h1>
+        <h2>Welcome to my AI interviewer bot</h2>
+        <p>Copy and paste a job description from any site and click submit to start the interview</p>
 
-
-        <form method="POST" action="/interview">
-             <div class="mb-3">
-                <label for="userprompt" class="form-label">How can I help you?</label>
-                <input type="userprompt" class="form-control" id="userprompt" name="userprompt" aria-describedby="userinputbox">
-             </div>
-        </form>
+        <div class="index-form">
+            <form method="POST" action="/interview">
+                <div class="mb-3">
+                    <textarea id="userprompt" name="userprompt" aria-describedby="userinputbox" rows="25" cols="100"></textarea>
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
 
 
 </body>
