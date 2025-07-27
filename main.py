@@ -36,18 +36,22 @@ def interview():
         if 'all_conversations' not in session:
             all_conversations = Conversations()
             session['all_conversations'] = all_conversations.to_dict()
+
+        print(session['conversation'])
         
     else:
         current_conversation = Conversation.from_dict(session['conversation'])
         current_conversation.conversation["prompts"].append(prompt)
         current_conversation.conversation["answers"].append(bot.converse(prompt))
         session['conversation'] = current_conversation.to_dict()
+        print(session['conversation'])
         
     return render_template('conversation.html', conversation = current_conversation.conversation, header=current_conversation.header, introduction=current_conversation.introduction)
 
 
 @app.route('/end_conversation', methods=['POST'])
 def end_conversation():
+    print(session['conversation'])
     conversation = Conversation.from_dict(session['conversation'])
     all_conversations = Conversations.from_dict(session['all_conversations'])
     all_conversations.conversations.append(conversation)
@@ -65,13 +69,14 @@ def specific_interview(header):
     selected_conversation = None
 
     for conversation in all_conversations.conversations:
-        if conversation['header'] == header:
+        if conversation.header == header:
             selected_conversation = conversation
 
-    session['conversation'] = selected_conversation
+    session['conversation'] = selected_conversation.to_dict()
     
-    return render_template('conversation.html', conversation=selected_conversation, header=selected_conversation['header'], introduction=selected_conversation['introduction'])
+    return render_template('conversation.html', conversation=selected_conversation.conversation, 
+                           header=selected_conversation.header, introduction=selected_conversation.introduction)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5001)

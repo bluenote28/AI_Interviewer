@@ -1,3 +1,5 @@
+from conversation import Conversation
+
 
 class Conversations():
     def __init__(self):
@@ -15,5 +17,11 @@ class Conversations():
     @classmethod
     def from_dict(cls, data):
         conversations = cls()
-        conversations.conversations = data['conversations']
+
+        deserialized_list = []
+
+        for conversation in data['conversations']:
+            deserialized_list.append(Conversation.from_dict(conversation))
+
+        conversations.conversations = deserialized_list
         return conversations
