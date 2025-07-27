@@ -10,23 +10,37 @@
 
         <div class="interview-section">
 
+
+
+                <h2>{{header}}</h2>
+
+                 <div class="card-container">
+                    <div class="card">
+                        <div class="card-body">
+                            {{introduction}}
+                        </div>
+                    </div>
+                </div>
         
                 {% for prompt in conversation["prompts"] %}
+
+                    {% if loop.index0 > 0 %}
                     
-                <div class="card-container">
-                    <div class="card">
-                        <div class="card-body">
-                            {{prompt}}
+                        <div class="card-container">
+                            <div class="card">
+                                <div class="card-body">
+                                    {{conversation["prompts"][loop.index0]}}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card-container">
-                    <div class="card">
-                        <div class="card-body">
-                            {{conversation["answers"][loop.index0]}}
+                        <div class="card-container">
+                            <div class="card">
+                                <div class="card-body">
+                                    {{conversation["answers"][loop.index0]}}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    {% endif %}
                 {% endfor %}
           
 
