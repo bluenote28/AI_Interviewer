@@ -23,8 +23,6 @@
                 </div>
         
                 {% for prompt in conversation["prompts"] %}
-
-                    {% if loop.index0 > 0 %}
                     
                         <div class="card-container">
                             <div class="card">
@@ -40,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                    {% endif %}
+                 
                 {% endfor %}
           
 
@@ -52,6 +50,10 @@
                     <input type="userprompt" class="form-control" id="userprompt" name="userprompt" aria-describedby="userinputbox">
                 </div>
             </form>
+            <form method="POST" action="/end_conversation">        
+                    <input type="submit" value="Save Conversation">  
+            </form>
+            
         </div>
 
 </body>
