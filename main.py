@@ -11,7 +11,15 @@ bot = AiBot()
 
 @app.route("/")
 def main_page():
-    return render_template('index.html')
+
+    if "all_conversations" in session:
+    
+        all_conversations = Conversations.from_dict(session['all_conversations'])
+
+    else:
+        all_conversations = []
+
+    return render_template('index.html', conversations = all_conversations)
 
 @app.route('/interview', methods=['POST'])
 def interview():
@@ -25,7 +33,7 @@ def interview():
                                         Do not mention a company name if one is not provided")
         session['conversation'] = current_conversation.to_dict()
 
-        if 'conversations' not in session:
+        if 'all_conversations' not in session:
             all_conversations = Conversations()
             session['all_conversations'] = all_conversations.to_dict()
         
@@ -46,7 +54,24 @@ def end_conversation():
     session['all_conversations'] = all_conversations.to_dict()
     session.pop('conversation', None)
 
-    return render_template('index.html')
+    return render_template('index.html', conversations=all_conversations.conversations)
+
+
+@app.route('/interview/<header>', methods=['GET'])
+def specific_interview(header):
+
+    all_conversations = Conversations.from_dict(session['all_conversations'])
+
+    selected_conversation = None
+
+    for conversation in all_conversations.conversations:
+        if conversation['header'] == header:
+            selected_conversation = conversation
+
+    session['conversation'] = selected_conversation
+    
+    return render_template('conversation.html', conversation=selected_conversation, header=selected_conversation['header'], introduction=selected_conversation['introduction'])
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
