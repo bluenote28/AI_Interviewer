@@ -66,3 +66,9 @@ ul {
     background-color: rgb(0, 0, 0);
     color: white;
 }
+
+.back-to-main-link{
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
