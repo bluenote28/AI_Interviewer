@@ -12,4 +12,7 @@ EXPOSE 5001
 
 ENV FLASK_APP=app.py
 
-CMD ["flask", "--app", "main", "run"]
+ARG GEMINI_API_KEY
+ENV GEMINI_API_KEY=$GEMINI_API_KEY
+
+CMD ["python3", "main.py"]
