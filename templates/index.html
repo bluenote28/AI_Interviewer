@@ -14,7 +14,7 @@
         <div class="index-form">
             <form method="POST" action="/interview">
                 <div class="mb-3">
-                    <textarea id="userprompt" name="userprompt" aria-describedby="userinputbox" rows="25" cols="100"></textarea>
+                    <textarea id="userprompt" name="userprompt" aria-describedby="userinputbox" rows="25" cols="80"></textarea>
                 </div>
                 <input type="submit" value="Submit">
             </form>
@@ -23,7 +23,7 @@
         {% if conversations %}
 
         <div class="prev-conversations">
-            <h3>Resume a previous conversations</h3>
+            <h3>Resume a previous conversation</h3>
 
             <ul>
             {% for conversation in conversations %}
