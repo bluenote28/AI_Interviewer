@@ -30,4 +30,12 @@ class AiBot():
         response = self.client.models.generate_content(model=self.model, contents=contents)
 
         return response.text
+    
+    def is_job_description(self, prompt):
+
+        contents = f"Let me know if this is a job description. Simply return 'yes' or 'no' and nothing else: {prompt}"
+
+        response = self.client.models.generate_content(model=self.model, contents=contents)
+
+        return response.text
 
