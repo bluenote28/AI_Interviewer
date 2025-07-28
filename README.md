@@ -12,6 +12,6 @@ After docker is installed run "docker pull bluenote28/ai-interview:v1.0"
 
 You will need to get a Gemini API key at https://aistudio.google.com
 
-Once the API key is obtained run "docker run -e GEMINI_API_KEY=<your-api-key> -p 5001:5001 ai-interview:v1.0"
+Once the API key is obtained run "docker run -e GEMINI_API_KEY=your-api-key -p 5001:5001 ai-interview:v1.0"
 
 Open a web browser and go to localhost:5001 and you should see the app running
