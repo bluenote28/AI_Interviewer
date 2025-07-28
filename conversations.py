@@ -25,3 +25,15 @@ class Conversations():
 
         conversations.conversations = deserialized_list
         return conversations
+    
+    def find_conversation_index(self, header):
+
+        try:
+        
+            for conversation in self.conversations:
+                if conversation.header == header:
+                    return self.conversations.index(conversation)
+                
+        except ValueError:
+
+            return None
