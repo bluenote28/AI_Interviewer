@@ -1,4 +1,4 @@
-from flask import Flask, session
+from flask import Flask, session, redirect, url_for
 from flask import render_template, request
 from ai_client import AiBot
 from conversation import Conversation
@@ -25,12 +25,17 @@ def main_page():
 def interview():
     prompt = request.form['userprompt']
     
+    if prompt == "":
+        return redirect(url_for('main_page'))
+
+    if 'conversation' not in session and bot.is_job_description(prompt) == 'no':
+        return render_template('error.html')
 
     if 'conversation' not in session:
         current_conversation = Conversation()
         current_conversation.header = bot.get_job_title_and_company(prompt)
         current_conversation.introduction = bot.converse(f"Introduce yourself as the interviewer of this job: {prompt}. Your name is Mr. Smith. Make up your job title. \
-                                        Do not mention a company name if one is not provided")
+                                        Do not mention a company name if one is not provided. Make sure to include the first question of the interview")
         session['conversation'] = current_conversation.to_dict()
 
         if 'all_conversations' not in session:
