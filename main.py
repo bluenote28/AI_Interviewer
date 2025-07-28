@@ -37,24 +37,29 @@ def interview():
             all_conversations = Conversations()
             session['all_conversations'] = all_conversations.to_dict()
 
-        print(session['conversation'])
-        
     else:
         current_conversation = Conversation.from_dict(session['conversation'])
         current_conversation.conversation["prompts"].append(prompt)
         current_conversation.conversation["answers"].append(bot.converse(prompt))
         session['conversation'] = current_conversation.to_dict()
-        print(session['conversation'])
         
     return render_template('conversation.html', conversation = current_conversation.conversation, header=current_conversation.header, introduction=current_conversation.introduction)
 
 
 @app.route('/end_conversation', methods=['POST'])
 def end_conversation():
-    print(session['conversation'])
     conversation = Conversation.from_dict(session['conversation'])
     all_conversations = Conversations.from_dict(session['all_conversations'])
-    all_conversations.conversations.append(conversation)
+
+    conversation_index = all_conversations.find_conversation_index(conversation.header)
+
+    if conversation_index is None:
+        all_conversations.conversations.append(conversation)
+
+    else:
+        all_conversations.conversations[conversation_index] = conversation
+
+
     session['all_conversations'] = all_conversations.to_dict()
     session.pop('conversation', None)
 
