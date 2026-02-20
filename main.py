@@ -2,7 +2,6 @@ from flask import Flask, session, redirect, url_for
 from flask import render_template, request
 from ai_client import AiBot
 from conversation import Conversation
-from conversations import Conversations
 import secrets
 
 app = Flask(__name__)
@@ -29,10 +28,6 @@ def interview():
         current_conversation.introduction = bot.converse(f"Introduce yourself as the interviewer of this job: {prompt}. Your name is Mr. Smith. Make up your job title. \
                                         Do not mention a company name if one is not provided. Make sure to include the first question of the interview")
         session['conversation'] = current_conversation.to_dict()
-
-        if 'all_conversations' not in session:
-            all_conversations = Conversations()
-            session['all_conversations'] = all_conversations.to_dict()
 
     else:
         current_conversation = Conversation.from_dict(session['conversation'])
