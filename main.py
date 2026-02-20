@@ -1,5 +1,5 @@
 from flask import Flask, session, redirect, url_for
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from ai_client import AiBot
 from conversation import Conversation
 import secrets
@@ -28,7 +28,7 @@ def interview():
         current_conversation.introduction = bot.converse(f"Introduce yourself as the interviewer of this job: {prompt}. Your name is Mr. Smith. Make up your job title. \
                                         Do not mention a company name if one is not provided. Make sure to include the first question of the interview")
         session['conversation'] = current_conversation.to_dict()
-
+   
     else:
         current_conversation = Conversation.from_dict(session['conversation'])
         current_conversation.conversation["prompts"].append(prompt)
@@ -38,5 +38,25 @@ def interview():
     return render_template('conversation.html', conversation = current_conversation.conversation, header=current_conversation.header, introduction=current_conversation.introduction)
 
 
+@app.route('/api/chat', methods=['POST'])
+def api_chat():
+    data = request.get_json()
+    prompt = data.get('prompt', '').strip()
+
+    if not prompt:
+        return jsonify({'error': 'Empty prompt'}), 400
+
+    if 'conversation' not in session:
+        return jsonify({'error': 'No active conversation'}), 400
+
+    current_conversation = Conversation.from_dict(session['conversation'])
+    answer = bot.converse(prompt)
+    current_conversation.conversation["prompts"].append(prompt)
+    current_conversation.conversation["answers"].append(answer)
+    session['conversation'] = current_conversation.to_dict()
+
+    return jsonify({'answer': answer})
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=5001, debug=True)
