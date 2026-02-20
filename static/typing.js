@@ -1,12 +1,9 @@
-var i = 0;
-var speed = 20
+var speed = 20;
 
-function typeWriter(txt) {
-
+function typeWriter(element, txt, i) {
+    i = i || 0;
     if (i < txt.length) {
-
-        document.getElementById("lastanswer").innerHTML += txt.charAt(i);
-        i++;
-        setTimeout(() => typeWriter(txt), speed);
+        element.innerHTML += txt.charAt(i);
+        setTimeout(() => typeWriter(element, txt, i + 1), speed);
     }
 }
