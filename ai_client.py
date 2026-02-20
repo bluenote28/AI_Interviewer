@@ -27,15 +27,20 @@ class AiBot():
         contents = f"Provide the company name and job title in: {job_text}. If there is no company name then just provide the job title. Do not add any other comments. \
         If there is a company name provide it in the form: job title at company name. If there is no company name then just provide the job title"
 
-        response = self.client.models.generate_content(model=self.model, contents=contents)
+        try:
+            response = self.client.models.generate_content(model=self.model, contents=contents)
+            return response.text
 
-        return response.text
+        except google.genai.errors.ServerError:
+            return Exception("Google is reporting a server error. Please try again later.")
     
     def is_job_description(self, prompt):
 
         contents = f"Let me know if this is a job description. Simply return 'yes' or 'no' and nothing else: {prompt}"
 
-        response = self.client.models.generate_content(model=self.model, contents=contents)
-
-        return response.text
+        try:
+            response = self.client.models.generate_content(model=self.model, contents=contents)
+            return response.text
+        except google.genai.errors.ServerError:
+            return Exception("Google is reporting a server error. Please try again later.")
 
