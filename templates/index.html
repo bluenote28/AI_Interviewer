@@ -7,18 +7,18 @@
     <title>AI Interviewer</title>
 </head>
 <body>
+    <div class="page-header">
+      <h1>Welcome to my AI interviewer bot</h1>
+    </div>
 
-        <h2>Welcome to my AI interviewer bot</h2>
-        <p>Copy and paste a job description from any site and click submit to start the interview</p>
-
-        <div class="index-form">
-            <form method="POST" action="/interview">
-                <div class="mb-3">
-                    <textarea id="userprompt" name="userprompt" aria-describedby="userinputbox" rows="25" cols="80"></textarea>
-                </div>
-                <input type="submit" value="Submit">
-            </form>
+    <div class="job-description-form-container">
+     <form method="POST" action="/interview">
+        <div class="job-description-form-contents">
+        <h6>Copy and paste a job description from any site and click submit to start the interview</h6>
+        <textarea id="userprompt" name="userprompt" aria-describedby="userinputbox" rows="25" cols="80"></textarea>
+        <input type="submit" value="Submit" class="job-description-button">
         </div>
-
+     </form>
+    </div>
 </body>
 </html>

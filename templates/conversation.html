@@ -8,51 +8,51 @@
 
     <title>AI Interviewer</title>
 </head>
-<body>
+    <body>
+        <div class="page-header">
+          <h1>{{header}}</h1>
+        </div>
 
         <div class="interview-section">
+            <div class="card-container">
+            <div class="card intro">
+             <div class="card-body">
+                {{introduction}}
+             </div>
+            </div>
+        </div>
 
-                <h2>{{header}}</h2>
-
-                 <div class="card-container">
-                    <div class="card intro">
+        {% for prompt in conversation["prompts"] %}
+            
+                <div class="card-container">
+                    <div class="card prompt">
                         <div class="card-body">
-                            {{introduction}}
+                            {{conversation["prompts"][loop.index0]}}
                         </div>
                     </div>
                 </div>
-        
-                {% for prompt in conversation["prompts"] %}
-                    
-                        <div class="card-container">
-                            <div class="card prompt">
-                                <div class="card-body">
-                                    {{conversation["prompts"][loop.index0]}}
-                                </div>
+
+                {% if loop.last %}
+
+                    <div class="card-container">
+                        <div class="card answer">
+                            <div class="card-body">
+                                <section id="lastanswer">{{conversation["answers"][loop.index0]}}</section>
                             </div>
                         </div>
+                    </div>
 
-                        {% if loop.last %}
+                {% else %}
 
-                            <div class="card-container">
-                                <div class="card answer">
-                                    <div class="card-body">
-                                        <section id="lastanswer">{{conversation["answers"][loop.index0]}}</section>
-                                    </div>
-                                </div>
+                    <div class="card-container">
+                        <div class="card answer">
+                            <div class="card-body">
+                                {{conversation["answers"][loop.index0]}}
                             </div>
-
-                        {% else %}
-
-                            <div class="card-container">
-                                <div class="card answer">
-                                    <div class="card-body">
-                                        {{conversation["answers"][loop.index0]}}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
-                {% endfor %}       
+                        </div>
+                    </div>
+                {% endif %}
+        {% endfor %}       
         </div>
 
         <div class="conversation-input">
@@ -67,8 +67,7 @@
 </html>
 
 <script>
-    window.onload = function() {
-        
+    window.onload = function() {      
         const text = document.getElementById('lastanswer').innerText;
         document.getElementById('lastanswer').innerText = "";
         typeWriter(text);
