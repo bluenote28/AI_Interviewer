@@ -20,23 +20,5 @@
             </form>
         </div>
 
-        {% if conversations %}
-
-        <div class="prev-conversations">
-            <h3>Resume a previous conversation</h3>
-
-            <ul>
-            {% for conversation in conversations %}
-                    
-        
-                <li><a href="{{ url_for('specific_interview', header=conversation.header) }}">{{conversation.header}}</a></li>      
-                 
-            {% endfor %}
-
-            </ul>
-        </div>
-
-        {% endif %}
-
 </body>
 </html>
